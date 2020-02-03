@@ -14,6 +14,14 @@ return [
     */
 
     // laravel有很多種登入的方法(guared)，可以是api或是web，預設為web
+    /* 
+    |--------------------------------------------------------------------------
+    | web middleware跟web guard是不一樣的東西
+    | 在php artisan route:list的middleware看到得web並不是web guard，而是web middleware
+    | web middleware像是建置sessions、cookies等
+    | 同理，api guard 不等於 api middleware
+    |--------------------------------------------------------------------------
+    */
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',

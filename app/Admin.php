@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 //因Auth\User裡面其實有extends model, 所以這個檔案其實也有extends model, 只是還有多其他auth的功能
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
 
