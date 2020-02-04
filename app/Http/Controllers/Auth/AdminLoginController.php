@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 // use Auth;
+
 class AdminLoginController extends Controller
 {		
 	public function __construct() {
-			$this->middleware('guest:admin');
-		}
+		$this->middleware('guest:admin');
+	}
 
     public function showLoginView() {
 		return view('auth.admin-login');
