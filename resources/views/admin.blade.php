@@ -14,7 +14,9 @@
                         </div>
                     @endif
                     
-                    You are logged in as <strong>Admin</strong>!
+                    @component('components.who')                    
+                    @endcomponent
+                    {{-- You are logged in as <strong>Admin</strong>! --}}
                 </div>
             </div>
         </div>

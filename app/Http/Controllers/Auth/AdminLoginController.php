@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminLoginController extends Controller
 {		
 	public function __construct() {
-		$this->middleware('guest:admin');
+		$this->middleware('guest:admin')->except('logout');
 	}
 
     public function showLoginView() {
@@ -35,5 +35,19 @@ class AdminLoginController extends Controller
     	
     	// if unsuccessful, then redirect back to the login with the form data
 		return redirect()->back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function logout() {
+        Auth::guard('admin')->logout();
+        /*
+        |----------------------------------------------------------
+        | 如果不註解掉，則user的session也會被清掉，則user也會跟著登出
+        |----------------------------------------------------------
+        |$request->session()->invalidate();
+        |
+        |$request->session()->regenerateToken();
+        |----------------------------------------------------------
+        */
+        return redirect('/');
     }
 }
