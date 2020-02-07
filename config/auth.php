@@ -111,12 +111,13 @@ return [
     |
     */
 
+    // password brokers
     'passwords' => [
         // 不需要因不同身分user而建造不同的password_resets table
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60, // minutes
+            'expire' => 60, // minutes，如果使用者在60分鐘內沒去信箱做連結則此token失效
             'throttle' => 60,
         ],
 
