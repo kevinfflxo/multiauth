@@ -10,6 +10,7 @@ class TrimStrings extends Middleware
      * The names of the attributes that should not be trimmed.
      *
      * @var array
+     * password前後空白將不會被刪除
      */
     protected $except = [
         'password',

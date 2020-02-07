@@ -13,6 +13,15 @@ return [
     |
     */
 
+    // laravel有很多種登入的方法(guared)，可以是api或是web，預設為web
+    /* 
+    |--------------------------------------------------------------------------
+    | web middleware跟web guard是不一樣的東西
+    | 在php artisan route:list的middleware看到得web並不是web guard，而是web middleware
+    | web middleware像是建置sessions、cookies等
+    | 同理，api guard 不等於 api middleware
+    |--------------------------------------------------------------------------
+    */
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
@@ -37,14 +46,19 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver' => 'session', // cookies
             'provider' => 'users',
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'token', // api token
             'provider' => 'users',
             'hash' => false,
+        ],
+
+        'admin' => [
+            'driver' => 'session', // cookies
+            'provider' => 'admins',
         ],
     ],
 
@@ -71,6 +85,11 @@ return [
             'model' => App\User::class,
         ],
 
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -92,9 +111,18 @@ return [
     |
     */
 
+    // password brokers
     'passwords' => [
+        // 不需要因不同身分user而建造不同的password_resets table
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60, // minutes，如果使用者在60分鐘內沒去信箱做連結則此token失效
+            'throttle' => 60,
+        ],
+
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
@@ -114,4 +142,10 @@ return [
 
     'password_timeout' => 10800,
 
+
+    /*
+    |--------------------------------------------------------------------------
+    |最後一步別忘了去APP/Admin增加protected $guard = 'admin';
+    |--------------------------------------------------------------------------
+    */
 ];
